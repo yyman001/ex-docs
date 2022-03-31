@@ -1,7 +1,7 @@
 # Websocket推送
 ### 概述
 
-WebSocket是HTML5一种新的协议（Protocol）。它实现了客户端与服务器全双工通信， 使得数据可以快速地双向传播。通过一次简单的握手就可以建立客户端和服务器连接， 服务器根据业务规则可以主动推送信息给客户端。其优点如下：
+`WebSocket`是HTML5一种新的协议（Protocol）。它实现了客户端与服务器全双工通信， 使得数据可以快速地双向传播。通过一次简单的握手就可以建立客户端和服务器连接， 服务器根据业务规则可以主动推送信息给客户端。其优点如下：
 
 * 客户端和服务器进行数据传输时，请求头信息比较小，大概2个字节。
     
@@ -32,9 +32,19 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/ws/WsT
 | unsub | market\_$symbol_ticker       | 取消订阅 24h 行情数据     |
 | unsub | market\_$symbol_trade_ticker | 取消订阅实时成交          |
 
+### 心跳
+每隔一段时间，服务器会发送PING消息。 客户端需要回复PONG消息，否则服务器将关闭连接 
+
+* ping
 ```json
 {
-    "pong": 15359750
+    "ping": 1535975085052
+}
+```
+* pong
+```json
+{
+    "pong": 1535975085052
 }
 ```
 
