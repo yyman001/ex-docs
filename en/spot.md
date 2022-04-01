@@ -1,5 +1,4 @@
 # Spot
----
 ## Public
 
 ### Security​
@@ -18,6 +17,7 @@ Endpoints under Public section can be accessed freely without requiring any API-
 https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/PairsList.java
 
 **Responses**
+
 | name              | type    | example | description                     |
 | ----------------- | ------- | ------- | ------------------------------- |
 | baseAsset         | string  | BTC     | Underlying asset for the symbol |
@@ -73,6 +73,7 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/P
 https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/TestConnectivity.java
 
 **Responses**
+
 ```json
 {}
 ```
@@ -83,10 +84,11 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/C
 
 **Responses**
 
+
 | name       | type   | example       | description      |
 | ---------- | ------ | ------------- | ---------------- |
-| serverTime | long   | 1607702400000 | 服务器 timestamp |
-| timezone   | string | GMT+08:00     | 服务器时区       |
+| serverTime | long   | 1607702400000 | server timestamp |
+| timezone   | string | GMT+08:00     | timezone       |
 
 
 ```json
@@ -100,7 +102,7 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/C
 
 ### Security​
 
-行情下方的接口不需要API-Key或者Sign就能自由访问
+Market section can be accessed freely without requiring any API-key or signatures.
 
 | name                   | Request type | Request url                            | remasks                          |
 | ---------------------- | ------------ | -------------------------------------- | -------------------------------- |
@@ -116,6 +118,7 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/K
 
 #### Parameters
 ***Query***
+
 | Parameters name | data type | name                                                                                          |
 | --------------- | --------- | --------------------------------------------------------------------------------------------- |
 | interval        | string    | Interval of the Kline. Possible values include: 1min,5min,15min,30min,60min,1day,1week,1month |
@@ -124,6 +127,7 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/K
 
 
 **Responses**
+
 | name | type   | example         | description  |
 | ---- | ------ | --------------- | ------------ |
 | high | float  | `9900`          | High Price   |
@@ -169,6 +173,7 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/R
 
 #### Parameters
 ***Query***
+
 | Parameters name | data type | name                            |
 | --------------- | --------- | ------------------------------- |
 | limit           | string    | Default 100; Max 1000           |
@@ -176,6 +181,7 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/R
 
 
 **Responses**
+
 | name  | type   | example       | description            |
 | ----- | ------ | ------------- | ---------------------- |
 | price | float  | 0.055         | The price of the trade |
@@ -205,11 +211,13 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/T
 
 #### Parameters
 ***Query***
+
 | Parameters name | data type | name                     |
 | --------------- | --------- | ------------------------ |
 | symbol          | string    | Symbol Name E.g. BTCUSDT |
 
 **Responses**
+
 | name | type  | example       | description   |
 | ---- | ----- | ------------- | ------------- |
 | high | float | 9900          | high price    |
@@ -238,12 +246,14 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/D
 
 #### Parameters
 ***Query***
+
 | Parameters name | data type | name                     |
 | --------------- | --------- | ------------------------ |
 | limit           | integer   | Default 100; Max 100     |
 | symbol          | string    | Symbol Name E.g. BTCUSDT |
 
 **Responses**
+
 | name | type | example       | description                                                     |
 | ---- | ---- | ------------- | --------------------------------------------------------------- |
 | asks | list |               | List of all asks, best asks first. See below for entry details. |
@@ -287,7 +297,7 @@ The fields bids and asks are lists of order book price level entries, sorted fro
 ### Trade
 
 安全type: [TRADE]
-Endpoints under Trade require an
+​All interfaces under the transaction require signature and API-key verification​
 
 | name                | Request type | Request url                                 | remasks                                                                                                                                          |
 | ------------------- | ------------ | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -307,13 +317,15 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/T
 
 #### Parameters
 ***Query***
+
 | Parameters name | data type | name                            |
 | --------------- | --------- | ------------------------------- |
 | fromId          | integer   | Trade Id to fetch from          |
 | limit           | string    | Default 100; Max 1000           |
 | symbol          | string    | Name of the symbol E.g. BTCUSDT |
 
-***Header***
+***header***
+
 | Parameters name | data type | name         |
 | --------------- | --------- | ------------ |
 | X-CH-APIKEY     | string    | Your API-key |
@@ -321,6 +333,7 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/T
 | X-CH-TS         | integer   | timestamp    |
 
 **Responses**
+
 | name    | type    | example            | description               |
 | ------- | ------- | ------------------ | ------------------------- |
 | askId   | long    | 150695552109032493 | Ask Order ID              |
@@ -361,14 +374,16 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/T
 https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/NewOrder.java
 
 #### Parameters
-***Header***
+***header***
+
 | Parameters name | data type | name         |
 | --------------- | --------- | ------------ |
 | X-CH-APIKEY     | string    | Your API-key |
 | X-CH-SIGN       | string    | Sign         |
 | X-CH-TS         | integer   | timestamp    |
 
-***Body***
+***body***
+
 | Parameters name  | data type | name                                                    |
 | ---------------- | --------- | ------------------------------------------------------- |
 | newClientOrderId | string    | Unique order ID generated by users to mark their orders |
@@ -381,6 +396,7 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/N
 
 
 **Responses**
+
 | name          | type    | example            | description                                                                                           |
 | ------------- | ------- | ------------------ | ----------------------------------------------------------------------------------------------------- |
 | clientOrderId | string  | 213443             | A unique ID of the order.                                                                             |
@@ -413,14 +429,16 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/N
 https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/TestNewOrder.java
 
 #### Parameters
-***Header***
+***header***
+
 | Parameters name | data type | name         |
 | --------------- | --------- | ------------ |
 | X-CH-APIKEY     | string    | Your API-key |
 | X-CH-SIGN       | string    | Sign         |
 | X-CH-TS         | integer   | timestamp    |
 
-***Body***
+***body***
+
 | Parameters name  | data type | name                                                    |
 | ---------------- | --------- | ------------------------------------------------------- |
 | newClientOrderId | string    | Unique order ID generated by users to mark their orders |
@@ -432,6 +450,7 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/T
 | volume           | number    | Order vol. For MARKET BUY orders, vol=amount            |
 
 **Responses**
+
 ```json
 {}
 ```
@@ -444,12 +463,14 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/C
 
 #### Parameters
 ***Query***
+
 | Parameters name | data type | name                            |
 | --------------- | --------- | ------------------------------- |
 | limit           | integer   | Default 100; Max 1000           |
 | symbol          | string    | Name of the symbol E.g. BTCUSDT |
 
-***Header***
+***header***
+
 | Parameters name | data type | name         |
 | --------------- | --------- | ------------ |
 | X-CH-APIKEY     | string    | Your API-key |
@@ -457,6 +478,7 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/C
 | X-CH-TS         | integer   | timestamp    |
 
 **Responses**
+
 | name          | type   | example            | description                                                                                           |
 | ------------- | ------ | ------------------ | ----------------------------------------------------------------------------------------------------- |
 | avgPrice      | float  | 4754.24            | Average price of filled orders.                                                                       |
@@ -494,21 +516,25 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/C
 https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/BatchOrders.java
 
 #### Parameters
-***Header***
+***header***
+
 | Parameters name | data type | name         |
 | --------------- | --------- | ------------ |
 | X-CH-APIKEY     | string    | Your API-key |
 | X-CH-SIGN       | string    | Sign         |
 | X-CH-TS         | integer   | timestamp    |
 
-***Body***
+***body***
+
 | Parameters name | data type | name                            |
 | --------------- | --------- | ------------------------------- |
 | orders          | array     | Batch order param               |
 | symbol          | string    | Name of the symbol E.g. BTCUSDT |
 
 **Responses**
+
 `orders` field:
+
 | name      | type   | example      | description             |
 | --------- | ------ | ------------ | ----------------------- |
 | batchType | string | LIMIT/MARKET | Batch type of the order |
@@ -532,20 +558,23 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/B
 https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/BatchCancelOrders.java
 
 #### Parameters
-***Header***
+***header***
+
 | Parameters name | data type | name         |
 | --------------- | --------- | ------------ |
 | X-CH-APIKEY     | string    | Your API-key |
 | X-CH-SIGN       | string    | Sign         |
 | X-CH-TS         | integer   | timestamp    |
 
-***Body***
+***body***
+
 | Parameters name | data type | name                            |
 | --------------- | --------- | ------------------------------- |
 | orderIds        | array     | Order ID collection [123,456]   |
 | symbol          | string    | Name of the symbol E.g. BTCUSDT |
 
 **Responses**
+
 | name | type | example | description |
 | ---- | ---- | ------- | ----------- |
 
@@ -569,14 +598,16 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/B
 https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/CancelOrder.java 
 
 #### Parameters
-***Header***
+***header***
+
 | Parameters name | data type | name         |
 | --------------- | --------- | ------------ |
 | X-CH-APIKEY     | string    | Your API-key |
 | X-CH-SIGN       | string    | Sign         |
 | X-CH-TS         | integer   | timestamp    |
 
-***Body***
+***body***
+
 | Parameters name  | data type | name                                                    |
 | ---------------- | --------- | ------------------------------------------------------- |
 | newClientOrderId | string    | Unique order ID generated by users to mark their orders |
@@ -585,6 +616,7 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/C
 
 
 **Responses**
+
 | name          | type   | example            | description                                                                                           |
 | ------------- | ------ | ------------------ | ----------------------------------------------------------------------------------------------------- |
 | clientOrderId | string | 213443             | Unique ID of the order.                                                                               |
@@ -611,13 +643,15 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/Q
 
 #### Parameters
 ***Query***
+
 | Parameters name  | data type | name                                                    |
 | ---------------- | --------- | ------------------------------------------------------- |
 | newClientOrderId | string    | Unique order ID generated by users to mark their orders |
 | orderId          | string    | 订单 id                                                 |
 | symbol           | string    | Name of the symbol E.g. BTCUSDT                         |
 
-***Header***
+***header***
+
 | Parameters name | data type | name         |
 | --------------- | --------- | ------------ |
 | X-CH-APIKEY     | string    | Your API-key |
@@ -626,6 +660,7 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/Q
 
 
 **Responses**
+
 | name          | type   | example            | description                                                                                           |
 | ------------- | ------ | ------------------ | ----------------------------------------------------------------------------------------------------- |
 | avgPrice      | float  | 4754.24            | Average price of filled orders.                                                                       |
@@ -671,7 +706,8 @@ Security Type: [USER\_DATA]
 https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/AccountInformation.java
 
 #### Parameters
-***Header***
+***header***
+
 | Parameters name | data type | name         |
 | --------------- | --------- | ------------ |
 | X-CH-APIKEY     | string    | Your API-key |
@@ -679,6 +715,7 @@ https://github.com/exchange2021/openapidemo/blob/master/src/main/java/com/spot/A
 | X-CH-TS         | integer   | timestamp    |
 
 **Responses**
+
 | name     | type  | example              | description |
 | -------- | ----- | -------------------- | ----------- |
 | balances | Array | Show balance details |
