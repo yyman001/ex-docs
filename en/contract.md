@@ -5,13 +5,14 @@
 
 Endpoints under Public section can be accessed freely without requiring any API-key or signatures.
 
-| name              | Request type | Request url                                      | remasks                |
-| ----------------- | ------------ | ------------------------------------------------ | ---------------------- |
-| Check Server Time | get          | https://futuresopenapi.xxx.com/fapi/v1/time      |                        |
-| Contract List     | get          | https://futuresopenapi.xxx.com/fapi/v1/contracts |                        |
-| 测试连接          | get          | https://futuresopenapi.xxx.com/fapi/v1/ping      | 测试 REST API 的连通性 |
+| name              | Request type | Request url                                      | remasks                                       |
+| ----------------- | ------------ | ------------------------------------------------ | --------------------------------------------- |
+| Check Server Time | get          | https://futuresopenapi.xxx.com/fapi/v1/time      |                                               |
+| Contract List     | get          | https://futuresopenapi.xxx.com/fapi/v1/contracts |                                               |
+| Test Connectivity | get          | https://futuresopenapi.xxx.com/fapi/v1/ping      | This endpoint checks connectivity to the host |
 
-### Contract List ###
+#### Contract List
+
 `接口参数有误`!
 **Responses**
 | name            | TYPE   | EXAMPLE    | DESCRIPTION                                                                       |
@@ -52,13 +53,15 @@ Endpoints under Public section can be accessed freely without requiring any API-
 ]
 ```
 
-#### 测试连接
+#### Test Connectivity
+
 **Responses**
 ```json
 {}
 ```
 
 #### Check Server Time
+
 **Responses**
 | name       | type   | example             | description      |
 | ---------- | ------ | ------------------- | ---------------- |
@@ -69,16 +72,16 @@ Endpoints under Public section can be accessed freely without requiring any API-
 ```json
 {
     "serverTime":1607702400000,
-    "timezone": 中国标准时间
+    "timezone":Chinese standard time
 }
 ```
 
 
 ## MARKET
 
-### Security​: [None]​
-
-Endpoints under Public section can be accessed freely without requiring any API-key or signatures.
+### Security​: [None]
+​
+Market section can be accessed freely without requiring any API-key or signatures.
 
 | name                   | Request type | Request url                                   | remasks             |
 | ---------------------- | ------------ | --------------------------------------------- | ------------------- |
@@ -92,7 +95,7 @@ Endpoints under Public section can be accessed freely without requiring any API-
 ***Query***
 | Parameters name | data type | name                                                                                          |
 | --------------- | --------- | --------------------------------------------------------------------------------------------- |
-| contractName    | string    | Name of the symbol e.g. E-BTC-USDT                                                            |
+| contractName    | string    | Contract Name e.g. E-BTC-USDT                                                                 |
 | interval        | string    | Interval of the Kline. Possible values include: 1min,5min,15min,30min,60min,1day,1week,1month |
 | limit           | integer   | Default 100; Max 300                                                                          |
 
@@ -139,10 +142,10 @@ Endpoints under Public section can be accessed freely without requiring any API-
 ### Get index/marked price
 #### Parameters
 ***Query***
-| Parameters name | data type | name                               |
-| --------------- | --------- | ---------------------------------- |
-| contractName    | string    | Name of the symbol e.g. E-BTC-USDT |
-| limit           | string    | Default 100; Max 300               |
+| Parameters name | data type | name                          |
+| --------------- | --------- | ----------------------------- |
+| contractName    | string    | Contract Name e.g. E-BTC-USDT |
+| limit           | string    | Default 100; Max 300          |
 
 
 **Responses**
@@ -166,9 +169,9 @@ Endpoints under Public section can be accessed freely without requiring any API-
 ### 24hrs ticker
 #### Parameters
 ***Query***
-| Parameters name | data type | name                               |
-| --------------- | --------- | ---------------------------------- |
-| contractName    | string    | Name of the symbol e.g. E-BTC-USDT |
+| Parameters name | data type | name                          |
+| --------------- | --------- | ----------------------------- |
+| contractName    | string    | Contract Name e.g. E-BTC-USDT |
 
 **Responses**
 | name | type   | example       | description     |
@@ -193,12 +196,14 @@ Endpoints under Public section can be accessed freely without requiring any API-
 
 
 ### Depth
+
+
 #### Parameters
 ***Query***
-| Parameters name | data type | name                               |
-| --------------- | --------- | ---------------------------------- |
-| contractName    | string    | Name of the symbol e.g. E-BTC-USDT |
-| limit           | integer   | Default 100; Max 300               |
+| Parameters name | data type | name                          |
+| --------------- | --------- | ----------------------------- |
+| contractName    | string    | Contract Name E.g. E-BTC-USDT |
+| limit           | integer   | Default 100; Max 300          |
 
 **Responses**
 | name | type | example       | description              |
@@ -239,15 +244,16 @@ Endpoints under Public section can be accessed freely without requiring any API-
 ```
 
 
-## 交易相关
+## Trading
 
 Security​: [TRADE]
-​
+​All interfaces under the transaction require signature and API-key verification​
+
 | name                     | Request type | Request url                                              | remasks                                                               |
 | ------------------------ | ------------ | -------------------------------------------------------- | --------------------------------------------------------------------- |
 | Cancel order             | post         | https://futuresopenapi.xxx.com/fapi/v1/cancel            | Rate Limit: 20times/2s                                                |
 | Condition order creation | post         | https://futuresopenapi.xxx.com/fapi/v1/conditionOrder    |                                                                       |
-| Open order               | get          | https://futuresopenapi.xxx.com/fapi/v1/openOrders        | Speed limit rules:                                                    |
+| Open order               | get          | https://futuresopenapi.xxx.com/fapi/v1/openOrders        | Speed limit rules: Obtain open contract, the user's current order     |
 | Order Historical         | post         | https://futuresopenapi.xxx.com/fapi/v1/orderHistorical   |                                                                       |
 | Order creation           | post         | https://futuresopenapi.xxx.com/fapi/v1/order             | Order creation                                                        |
 | Order details            | get          | https://futuresopenapi.xxx.com/fapi/v1/order             |                                                                       |
@@ -259,16 +265,16 @@ Security​: [TRADE]
 ***Query***
 | Parameters name | data type | name                               |
 | --------------- | --------- | ---------------------------------- |
-| contractName    | string    | Name of the symbol e.g. E-BTC-USDT |
-| fromId          | long      | Trade Id to fetch from             |
+| contractName    | string    | Contract Name e.g. E-BTC-USDT      |
+| fromId          | long      | Start retrieving from this tradeId |
 | limit           | string    | Default 100; Max 1000              |
 
 ***Header***
 | Parameters name | data type | name         |
 | --------------- | --------- | ------------ |
-| X-CH-APIKEY     | string    | YOUR API-key |
-| X-CH-SIGN       | string    | SIGN         |
-| X-CH-TS         | integer   | TIMESTAMP    |
+| X-CH-APIKEY     | string    | Your API-key |
+| X-CH-SIGN       | string    | sign         |
+| X-CH-TS         | integer   | timestamp    |
 
 **Responses**
 | name         | TYPE    | EXAMPLE            | DESCRIPTION                                        |
@@ -312,8 +318,8 @@ Security​: [TRADE]
 | Parameters name | data type | name         |
 | --------------- | --------- | ------------ |
 | X-CH-APIKEY     | string    | Your API-key |
-| X-CH-SIGN       | string    | SIGN         |
-| X-CH-TS         | string    | TIMESTAMP    |
+| X-CH-SIGN       | string    | sign         |
+| X-CH-TS         | string    | timestamp    |
 
 ***Body***
 | Parameters name | data type | name                                                      |
@@ -349,8 +355,8 @@ Security​: [TRADE]
 | Parameters name | data type | name         |
 | --------------- | --------- | ------------ |
 | X-CH-APIKEY     | string    | Your API-key |
-| X-CH-SIGN       | string    | SIGN         |
-| X-CH-TS         | string    | TIMESTAMP    |
+| X-CH-SIGN       | string    | sign         |
+| X-CH-TS         | string    | timestamp    |
 
 ***Body***
 | Parameters name | data type | name                                                         |
@@ -358,7 +364,7 @@ Security​: [TRADE]
 | clientOrderId   | string    | Client order identity, a string with length less than 32 bit |
 | contractName    | string    | Contract name 如 `E-BTC-USDT`                                |
 | open            | string    | Open balancing direction,, `OPEN/CLOSE`                      |
-| positionType    | number    | Hold-up position, 1 full position, 2 restrictive position                            |
+| positionType    | number    | Hold-up position, 1 full position, 2 restrictive position    |
 | price           | number    | Order price                                                  |
 | side            | string    | trade direction, `BUY/SELL`                                  |
 | timeInForce     | string    | `IOC, FOK, POST_ONLY`                                        |
@@ -383,19 +389,20 @@ Security​: [TRADE]
 | Parameters name | data type | name         |
 | --------------- | --------- | ------------ |
 | X-CH-APIKEY     | string    | Your API-key |
-| X-CH-SIGN       | string    | SIGN         |
-| X-CH-TS         | string    | TIMESTAMP    |
+| X-CH-SIGN       | string    | sign         |
+| X-CH-TS         | string    | timestamp    |
 
 ***Body***
-| Parameters name | data type | name                               |
-| --------------- | --------- | ---------------------------------- |
-| contractName    | string    | Name of the symbol e.g. E-BTC-USDT |
-| fromId          | long      | Trade Id to fetch from             |
-| limit           | string    | Default 100; Max 1000              |
+| Parameters name | data type | name                          |
+| --------------- | --------- | ----------------------------- |
+| contractName    | string    | Contract Name e.g. E-BTC-USDT |
+| fromId          | long      | Start retrieving from this Id |
+| limit           | string    | Default 100; Max 1000         |
 
 **Responses**
 | name | TYPE | EXAMPLE | DESCRIPTION |
 | ---- | ---- | ------- | ----------- |
+
 
 
 
@@ -433,8 +440,8 @@ Security​: [TRADE]
 | Parameters name | data type | name         |
 | --------------- | --------- | ------------ |
 | X-CH-APIKEY     | string    | Your API-key |
-| X-CH-SIGN       | string    | SIGN         |
-| X-CH-TS         | integer   | TIMESTAMP    |
+| X-CH-SIGN       | string    | sign         |
+| X-CH-TS         | integer   | timestamp    |
 
 ***Body***
 | Parameters name | data type | name                     |
@@ -464,9 +471,9 @@ Security​: [TRADE]
 ***Header***
 | Parameters name | data type | name         |
 | --------------- | --------- | ------------ |
-| X-CH-APIKEY     | string    | YOUR API-key |
-| X-CH-SIGN       | string    | SIGN         |
-| X-CH-TS         | string    | TIMESTAMP    |
+| X-CH-APIKEY     | string    | | Your API-key |
+| X-CH-SIGN       | string    | sign         |
+| X-CH-TS         | string    | timestamp    |
 
 **Responses**
 | name         | type   | example            | description                                                                                                                                                                              |
@@ -509,19 +516,20 @@ Security​: [TRADE]
 | Parameters name | data type | name         |
 | --------------- | --------- | ------------ |
 | X-CH-APIKEY     | string    | Your API-key |
-| X-CH-SIGN       | string    | SIGN         |
-| X-CH-TS         | string    | TIMESTAMP    |
+| X-CH-SIGN       | string    | sign         |
+| X-CH-TS         | string    | timestamp    |
 
 ***Body***
-| Parameters name | data type | name                       |
-| --------------- | --------- | -------------------------- |
-| contractName    | string    | Contract name `E-BTC-USDT` |
-| fromId          | long      | Trade Id to fetch from     |
-| limit           | string    | Default 100; Max 1000      |
+| Parameters name | data type | name                                  |
+| --------------- | --------- | ------------------------------------- |
+| contractName    | string    | Contract name `E-BTC-USDT`            |
+| fromId          | long      | Start retrieving from this Id         |
+| limit           | string    | Lines per page, default 100, max 1000 |
 
 **Responses**
 | name | TYPE | EXAMPLE | DESCRIPTION |
 | ---- | ---- | ------- | ----------- |
+
 
 
 
@@ -557,8 +565,8 @@ Security​: [TRADE]
 | Parameters name | data type | name                      |
 | --------------- | --------- | ------------------------- |
 | clientOrderId   | string    | A unique ID of the order. |
-| contractName\*  | string    | Contract name             |
-| orderId\*       | string    | ID of the order           |
+| contractName    | string    | Contract name             |
+| orderId         | string    | ID of the order           |
 
 **Responses**
 | name         | type   | example            | description                                                                                                                                                                              |
@@ -598,24 +606,24 @@ Security​: [TRADE]
 
 Security Type: [USER\_DATA]
 
-All interfaces under the account require​
+All interfaces under the account require​ signature and API-key verification​
 
-| name                | Request type | Request url                                    | remasks                |
-| ------------------- | ------------ | ---------------------------------------------- | ---------------------- |
-| Account Information | get          | https://futuresopenapi.xxx.com/fapi/v1/account | Rate Limit: 20times/2s |
+| name         | Request type | Request url                                    | remasks                        |
+| ------------ | ------------ | ---------------------------------------------- | ------------------------------ |
+| Account info | get          | https://futuresopenapi.xxx.com/fapi/v1/account | Speed limit rules: 20 times/2s |
 
 ### Account Information
 #### Parameters
 ***Header***
 | Parameters name | data type | name         |
 | --------------- | --------- | ------------ |
-| X-CH-APIKEY     | string    | YOUR API-key |
-| X-CH-SIGN       | string    | SIGN         |
-| X-CH-TS         | integer   | TIMESTAMP    |
+| X-CH-APIKEY     | string    | | Your API-key |
+| X-CH-SIGN       | string    | sign         |
+| X-CH-TS         | integer   | timestamp    |
 
 **Responses**
-| name    | TYPE  | EXAMPLE            | DESCRIPTION |
-| ------- | ----- | ------------------ | ----------- |
+| name    | TYPE  | DESCRIPTION        |
+| ------- | ----- | ------------------ |
 | account | Array | Balance collection |
 
 ***account*** field:
@@ -627,7 +635,7 @@ All interfaces under the account require​
 | marginCoin          | string | USDT    | Margin coin                        |
 | partEquity          | float  | 10.07   | Restricted position equity         |
 | partPositionNormal  | float  | 10.07   | Restricted position margin balance |
-| positionVos         | [ ]    | ​       | Position contract record           |
+| positionVos         | Array  | ​       | Position contract record           |
 | sumMarginRate       | float  | 10.07   | All accounts margin rate           |
 | totalCost           | float  | 10.07   | Full position costs                |
 | totalEquity         | float  | 10.07   | Full position equity               |
